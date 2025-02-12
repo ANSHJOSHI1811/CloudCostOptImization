@@ -7,5 +7,6 @@ import (
 )
 
 func RegisterRoutes(r *gin.Engine) {
-	r.GET("/skus", handlers.FetchSKUs)
+	r.GET("/providers", handlers.GetProviders)
+	r.GET("/regions", handlers.GetRegions)
 }

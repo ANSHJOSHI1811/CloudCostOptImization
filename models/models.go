@@ -1,16 +1,16 @@
 package models
 
-type Provider struct {
-	ProviderID   uint   `gorm:"primaryKey"`
-	ProviderName string `gorm:"unique"`
-}
-
 type Region struct {
 	RegionID   uint   `gorm:"primaryKey"`
 	RegionCode string `gorm:"unique"`
 	ProviderID uint   `gorm:"not null;constraint:OnDelete:CASCADE;"` // Foreign key with cascade delete
 }
 
+type Provider struct {
+	ProviderID   uint      `gorm:"primaryKey"`
+	ProviderName string    `gorm:"unique"`
+	DisableFlag  bool      `gorm:"default:false"`
+}
 
 type SKU struct {
 	ID              uint   `gorm:"primaryKey"`
