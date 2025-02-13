@@ -12,6 +12,16 @@ type Provider struct {
 	DisableFlag  bool      `gorm:"default:false"`
 }
 
+type SavingPlan struct {
+	ID                  uint   `gorm:"primaryKey"`
+	DiscountedSku       string
+	Sku                 string
+	LeaseContractLength int
+	DiscountedRate      string
+	RegionID            uint `gorm:"not null;constraint:OnDelete:CASCADE;"`
+
+}
+
 type SKU struct {
 	ID              uint   `gorm:"primaryKey"`
 	SKUCode         string `gorm:"unique"`
