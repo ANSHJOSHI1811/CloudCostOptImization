@@ -32,7 +32,6 @@ type SKU struct {
 	Storage         string
 	Network         string
 	InstanceSKU     string
-	Processor       string
-	UsageType       string
+	Memory          string
 	RegionID        uint `gorm:"not null;constraint:OnDelete:CASCADE;"` // Foreign key with cascade delete
 }
