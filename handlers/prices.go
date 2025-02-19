@@ -6,6 +6,7 @@ import (
 	"cco_api/models"
 	"github.com/gin-gonic/gin"
 )
+
 func GetPrices(c *gin.Context) {
 	skuID := c.Query("sku_id")
 	if skuID == "" {

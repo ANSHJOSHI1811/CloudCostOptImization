@@ -11,6 +11,7 @@ type Provider struct {
 	ProviderName string    `gorm:"unique"`
 	DisableFlag  bool      `gorm:"default:false"`
 }
+
 type SavingPlan struct {
 	ID                  uint   `gorm:"primaryKey"`
 	DiscountedSku       string
@@ -18,8 +19,8 @@ type SavingPlan struct {
 	LeaseContractLength int
 	DiscountedRate      string
 	RegionID            uint `gorm:"not null;constraint:OnDelete:CASCADE;"`
-
 }
+
 type SKU struct {
 	ID              uint   `gorm:"primaryKey"`
 	SKUCode         string `gorm:"unique"`
@@ -33,6 +34,7 @@ type SKU struct {
 	Memory          string
 	RegionID        uint `gorm:"not null;constraint:OnDelete:CASCADE;"` // Foreign key with cascade delete
 }
+
 type Price struct {
 	PriceID       uint   `gorm:"primaryKey;autoIncrement"`
 	SKU_ID        uint   `gorm:"not null;constraint:OnDelete:CASCADE;"`

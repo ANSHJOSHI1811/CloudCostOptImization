@@ -7,6 +7,7 @@ import (
 	"cco_api/models"
 	"github.com/gin-gonic/gin"
 )
+
 func GetTerms(c *gin.Context) {
 	skuIDStr := c.Query("sku_id")
 
