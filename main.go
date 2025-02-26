@@ -4,7 +4,6 @@ import (
 	"log"
 	"cco_api/database"
 	"cco_api/routes"
-
 	"github.com/gin-gonic/gin"
 )
 
