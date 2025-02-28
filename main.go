@@ -5,6 +5,8 @@ import (
 	"cco_api/database"
 	"cco_api/routes"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
+	"time"
 )
 
 func main() {
@@ -13,6 +15,16 @@ func main() {
 
 	// Create Gin router
 	r := gin.Default()
+
+	// CORS Middleware
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"}, // Frontend ka URL
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour, // CORS cache duration
+	}))
 
 	// Register routes
 	routes.RegisterRoutes(r)

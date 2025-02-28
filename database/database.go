@@ -12,7 +12,7 @@ import (
 var DB *gorm.DB
 
 // Database connection string
-var DbConnStr = "host=localhost user=postgres password=1234 dbname=temp_db sslmode=disable"
+var DbConnStr = "host=localhost user=postgres password=password dbname=temp_db sslmode=disable"
 
 // Initialize Database
 func InitDatabase() {

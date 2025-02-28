@@ -18,29 +18,39 @@ type SavingPlan struct {
 	Sku                 string
 	LeaseContractLength int
 	DiscountedRate      string
+	ProviderID 			uint
+	RegionCode			string
+	DiscountedInstanceType string
+	Unit 				string
 	RegionID            uint `gorm:"not null;constraint:OnDelete:CASCADE;"`
 }
 
 type SKU struct {
-	ID              uint   `gorm:"primaryKey"`
-	SKUCode         string `gorm:"unique"`
-	ProductFamily   string
-	VCPU            int
-	OperatingSystem string
-	InstanceType    string
-	Storage         string
-	Network         string
-	InstanceSKU     string
-	Memory          string
-	RegionID        uint `gorm:"not null;constraint:OnDelete:CASCADE;"` // Foreign key with cascade delete
+    ID              uint   `gorm:"primaryKey"`
+    SKUCode         string `gorm:"unique"`
+    ProductFamily   string
+    VCPU            int
+    OperatingSystem string
+    InstanceType    string
+    Storage         string
+    Network         string
+    InstanceSKU     string
+    Memory          string
+	RegionCode		string
+    RegionID        uint `gorm:"not null;constraint:OnDelete:CASCADE;"`
+	ProviderID 		uint 
+
+    // ✅ Add this line to establish the relation
+    Prices []Price `gorm:"foreignKey:SKU_ID"`  
 }
 
+
 type Price struct {
-	PriceID       uint   `gorm:"primaryKey;autoIncrement"`
-	SKU_ID        uint   `gorm:"not null;constraint:OnDelete:CASCADE;"`
-	EffectiveDate string `gorm:"type:varchar(255)"`
-	Unit          string `gorm:"type:varchar(50)"`
-	PricePerUnit  string `gorm:"type:varchar(50)"`
+    PriceID       uint   `gorm:"primaryKey;autoIncrement"`
+    SKU_ID        uint   `gorm:"not null;constraint:OnDelete:CASCADE;"`
+    EffectiveDate string `gorm:"type:varchar(255)"`
+    Unit          string `gorm:"type:varchar(50)"`
+    PricePerUnit  string `gorm:"type:varchar(50)"`
 }
 
 type Term struct {
