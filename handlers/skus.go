@@ -9,8 +9,10 @@ import (
     "strconv"
 )
 
+
+
 // GetSKU handles the request to fetch SKUs with filters and prices
-func GetSKU(c *gin.Context) {
+func GetSKUS(c *gin.Context) {
     region := c.DefaultQuery("region", "")
     vcpuStr := c.DefaultQuery("vcpu", "")
     operatingSystem := c.DefaultQuery("operatingSystem", "")

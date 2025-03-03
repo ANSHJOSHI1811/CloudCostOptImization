@@ -2,7 +2,6 @@ package routes
 
 import (
 	"cco_api/handlers"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,4 +12,6 @@ func RegisterRoutes(r *gin.Engine) {
 	r.GET("/skus", handlers.GetSKU)
 	r.GET("/prices", handlers.GetPrices)
 	r.GET("/terms",handlers.GetTerms)
+	r.GET("/priceAndTerms",handlers.GetPriceAndTerms)
+	r.GET("/sku",handlers.GetSKU)
 }

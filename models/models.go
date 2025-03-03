@@ -61,3 +61,14 @@ type Term struct {
 	PurchaseOption      string `gorm:"size:255"`
 	OfferingClass       string `gorm:"size:255"`
 }
+// Define a struct to merge Term and Price fields
+type TermWithPrice struct {
+	OfferTermID         int    `json:"offer_term_id"`
+	SKU_ID              uint   `json:"sku_id"`
+	LeaseContractLength string `json:"lease_contract_length"`
+	PurchaseOption      string `json:"purchase_option"`
+	OfferingClass       string `json:"offering_class"`
+	PricePerUnit        string `json:"price_per_unit"`
+	Unit                string `json:"unit"`
+	PriceID             uint   `json:"price_id"`
+}
