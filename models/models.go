@@ -27,18 +27,25 @@ type SavingPlan struct {
 
 type SKU struct {
     ID              uint   `gorm:"primaryKey"`
-    SKUCode         string `gorm:"unique"`
-    ProductFamily   string
-    VCPU            int
-    OperatingSystem string
-    InstanceType    string
-    Storage         string
-    Network         string
-    InstanceSKU     string
-    Memory          string
-	RegionCode		string
-    RegionID        uint `gorm:"not null;constraint:OnDelete:CASCADE;"`
-	ProviderID 		uint 
+	RegionID        uint   `gorm:"not null;constraint:OnDelete:CASCADE;"` 
+	ProviderID      uint   `gorm:"not null"`
+	RegionCode      string `gorm:"not null"`
+	SKUCode         string `gorm:"unique"`
+	InstanceSKU     string
+	ProductFamily   string
+	VCPU            int
+	CpuArchitecture string
+	InstanceType    string
+	Storage         string
+	Network         string
+	OperatingSystem string
+	Type 		    string 
+	Memory          string
+	PhysicalProcessor    string `gorm:"column:physical_processor"`   
+	MaxThroughput        string `gorm:"column:max_throughput"`        
+	EnhancedNetworking   string `gorm:"column:enhanced_networking"`   
+	GPU                  string `gorm:"column:gpu"`                  
+	MaxIOPS              string `gorm:"column:max_iops"`  
 
     // ✅ Add this line to establish the relation
     Prices []Price `gorm:"foreignKey:SKU_ID"`  
