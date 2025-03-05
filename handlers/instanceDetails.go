@@ -3,23 +3,29 @@ package handlers
 import (
     "net/http"
     "cco_api/database"
-    "cco_api/models"
     "github.com/gin-gonic/gin"
 )
 type SKU struct {
-    ID              uint   `gorm:"primaryKey"`
-    SKUCode         string `gorm:"unique"`
-    ProductFamily   string
-    VCPU            int
-    OperatingSystem string
-    InstanceType    string
-    Storage         string
-    Network         string
-    InstanceSKU     string
-    Memory          string
-	RegionCode		string
-    RegionID        uint `gorm:"not null;constraint:OnDelete:CASCADE;"`
-	ProviderID 		uint 
+	ID              uint   `gorm:"primaryKey"`
+	RegionID        uint   `gorm:"not null;constraint:OnDelete:CASCADE;"` 
+	ProviderID      uint   `gorm:"not null"`
+	RegionCode      string `gorm:"not null"`
+	SKUCode         string `gorm:"unique"`
+	InstanceSKU     string
+	ProductFamily   string
+	VCPU            int
+	CpuArchitecture string
+	InstanceType    string
+	Storage         string
+	Network         string
+	OperatingSystem string
+	Type 		    string 
+	Memory          string
+	PhysicalProcessor    string  
+	MaxThroughput        string     
+	EnhancedNetworking   string   
+	GPU                  string                   
+	MaxIOPS              string 
 
     // ✅ Add this line to establish the relation
     Prices []Price `gorm:"foreignKey:SKU_ID"`  
@@ -33,7 +39,7 @@ type Price struct {
 }
 
 func GetDetails(c *gin.Context) {
-	var sku models.SKU
+	var sku SKU
 
 	// Get query parameters
 	skuID := c.Query("sku_id")
