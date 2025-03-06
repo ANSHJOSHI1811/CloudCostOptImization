@@ -9,19 +9,30 @@ import (
 )
 
 // GetSavingPlans handles the request to fetch SavingPlans with filters
+// GetSavingPlans handles the request to fetch SavingPlans with filters
 func GetSavingPlans(c *gin.Context) {
 	region := c.DefaultQuery("region", "")
 	contractLengthStr := c.DefaultQuery("contractLength", "")
-	priceStr := c.DefaultQuery("price", "")
+	minPriceStr := c.DefaultQuery("minimumPrice", "")
+	maxPriceStr := c.DefaultQuery("maximumPrice", "")
 	pageStr := c.DefaultQuery("page", "1")
 	limitStr := c.DefaultQuery("limit", "200")
 
-	var price float64
+	var minPrice, maxPrice float64
 	var err error
-	if priceStr != "" {
-		price, err = strconv.ParseFloat(priceStr, 64)
+
+	if minPriceStr != "" {
+		minPrice, err = strconv.ParseFloat(minPriceStr, 64)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid price parameter"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid minimumPrice parameter"})
+			return
+		}
+	}
+
+	if maxPriceStr != "" {
+		maxPrice, err = strconv.ParseFloat(maxPriceStr, 64)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid maximumPrice parameter"})
 			return
 		}
 	}
@@ -61,8 +72,12 @@ func GetSavingPlans(c *gin.Context) {
 		query = query.Where("lease_contract_length = ?", contractLength)
 	}
 
-	if priceStr != "" {
-		query = query.Where("CAST(discounted_rate AS DECIMAL) <= ?", price)
+	if minPriceStr != "" {
+		query = query.Where("CAST(discounted_rate AS DECIMAL) >= ?", minPrice)
+	}
+
+	if maxPriceStr != "" {
+		query = query.Where("CAST(discounted_rate AS DECIMAL) <= ?", maxPrice)
 	}
 
 	var totalCount int64

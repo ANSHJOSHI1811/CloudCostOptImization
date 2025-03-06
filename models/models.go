@@ -17,7 +17,7 @@ type SavingPlan struct {
 	DiscountedSku       string
 	Sku                 string
 	LeaseContractLength int
-	DiscountedRate      string
+	DiscountedRate float64 `gorm:"type:decimal(10,4)"`
 	ProviderID 			uint
 	RegionCode			string
 	DiscountedInstanceType string
