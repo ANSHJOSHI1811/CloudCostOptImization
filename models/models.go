@@ -24,7 +24,6 @@ type SavingPlan struct {
 	Unit 				string
 	RegionID            uint `gorm:"not null;constraint:OnDelete:CASCADE;"`
 }
-
 type SKU struct {
     ID              uint   `gorm:"primaryKey"`
     SKUCode         string `gorm:"unique"`
@@ -33,24 +32,22 @@ type SKU struct {
     OperatingSystem string
     InstanceType    string
     Storage         string
-    Network         string
+    Network         string   // ✅ Change from string → int
     InstanceSKU     string
     Memory          string
-	RegionCode		string
-    RegionID        uint `gorm:"not null;constraint:OnDelete:CASCADE;"`
-	ProviderID 		uint 
+    RegionCode      string
+    RegionID        uint    `gorm:"not null;constraint:OnDelete:CASCADE;"`
+    ProviderID      uint 
 
-    // ✅ Add this line to establish the relation
     Prices []Price `gorm:"foreignKey:SKU_ID"`  
 }
 
-
 type Price struct {
-    PriceID       uint   `gorm:"primaryKey;autoIncrement"`
-    SKU_ID        uint   `gorm:"not null;constraint:OnDelete:CASCADE;"`
-    EffectiveDate string `gorm:"type:varchar(255)"`
-    Unit          string `gorm:"type:varchar(50)"`
-    PricePerUnit  string `gorm:"type:varchar(50)"`
+    PriceID       uint     `gorm:"primaryKey;autoIncrement"`
+    SKU_ID        uint     `gorm:"not null;constraint:OnDelete:CASCADE;"`
+    EffectiveDate string   `gorm:"type:varchar(255)"`
+    Unit          string   `gorm:"type:varchar(50)"`
+    PricePerUnit  float64  `gorm:"type:decimal(10,4)"` // ✅ Change from string → float64
 }
 
 type Term struct {
