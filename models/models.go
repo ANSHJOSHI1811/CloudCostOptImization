@@ -17,14 +17,13 @@ type SavingPlan struct {
 	DiscountedSku       string
 	Sku                 string
 	LeaseContractLength int
-	DiscountedRate      string
+	DiscountedRate float64 `gorm:"type:decimal(10,4)"`
 	ProviderID 			uint
 	RegionCode			string
 	DiscountedInstanceType string
 	Unit 				string
 	RegionID            uint `gorm:"not null;constraint:OnDelete:CASCADE;"`
 }
-
 type SKU struct {
     ID              uint   `gorm:"primaryKey"`
 	RegionID        uint   `gorm:"not null;constraint:OnDelete:CASCADE;"` 
@@ -46,18 +45,15 @@ type SKU struct {
 	EnhancedNetworking   string `gorm:"column:enhanced_networking"`   
 	GPU                  string `gorm:"column:gpu"`                  
 	MaxIOPS              string `gorm:"column:max_iops"`  
-
-    // ✅ Add this line to establish the relation
     Prices []Price `gorm:"foreignKey:SKU_ID"`  
 }
 
-
 type Price struct {
-    PriceID       uint   `gorm:"primaryKey;autoIncrement"`
-    SKU_ID        uint   `gorm:"not null;constraint:OnDelete:CASCADE;"`
-    EffectiveDate string `gorm:"type:varchar(255)"`
-    Unit          string `gorm:"type:varchar(50)"`
-    PricePerUnit  string `gorm:"type:varchar(50)"`
+    PriceID       uint     `gorm:"primaryKey;autoIncrement"`
+    SKU_ID        uint     `gorm:"not null;constraint:OnDelete:CASCADE;"`
+    EffectiveDate string   `gorm:"type:varchar(255)"`
+    Unit          string   `gorm:"type:varchar(50)"`
+    PricePerUnit  float64  `gorm:"type:decimal(10,4)"` // ✅ Change from string → float64
 }
 
 type Term struct {
