@@ -18,14 +18,15 @@ func main() {
 
 	// CORS Middleware
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000"}, // Frontend ka URL
+		AllowOrigins:     []string{"http://localhost:3000"}, // Allow frontend
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization", "region", "regioncode"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
-		MaxAge:           12 * time.Hour, // CORS cache duration
+		MaxAge:           12 * time.Hour,
 	}))
-
+	
+	
 	// Register routes
 	routes.RegisterRoutes(r)
 
