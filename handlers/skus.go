@@ -9,8 +9,6 @@ import (
     "strconv"
 )
 
-
-
 func GetSKUS(c *gin.Context) {
     region := c.DefaultQuery("region", "")
     minVcpuStr := c.DefaultQuery("minVcpu", "")
