@@ -45,7 +45,6 @@ type SKU struct {
 	EnhancedNetworking   string `gorm:"column:enhanced_networking"`   
 	GPU                  string `gorm:"column:gpu"`                  
 	MaxIOPS              string `gorm:"column:max_iops"`  
-
     Prices []Price `gorm:"foreignKey:SKU_ID"`  
 }
 
